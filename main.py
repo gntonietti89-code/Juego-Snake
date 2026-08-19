@@ -116,11 +116,13 @@ class SnakeGame:
         self.direction = self.next_direction
         head_x, head_y = self.snake[0]
         direction_x, direction_y = self.direction
-        new_head = (head_x + direction_x, head_y + direction_y)
+        new_head = (
+            (head_x + direction_x) % GRID_WIDTH,
+            (head_y + direction_y) % GRID_HEIGHT,
+        )
 
-        hit_wall = not (0 <= new_head[0] < GRID_WIDTH and 0 <= new_head[1] < GRID_HEIGHT)
         hit_self = new_head in self.snake[:-1]
-        if hit_wall or hit_self:
+        if hit_self:
             self.game_over = True
             self.draw()
             return
